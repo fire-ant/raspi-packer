@@ -5,7 +5,7 @@ on: [push]
 env:
   PACKER_VERSION: latest
   LIBARCHIVE_VERSION: 3.6.2
-  GO_VERSION: '^1.19.5'
+  GO_VERSION: '^1.20'
   PACKER_CACHE_DIR: ~/packer_cache/
 
 jobs:
@@ -15,18 +15,18 @@ jobs:
     strategy:
       matrix:
         host:
-        - path: ./hosts/raspi4/aarch64.json
-          imgName: raspberry-pi4-aarch64.img
-        - path: ./hosts/raspi4/aarch64-debug.json
-          imgName: raspberry-pi4-aarch64-debug.img
-        - path: ./hosts/raspi4/aarch64-cm4.json
-          imgName: raspberry-pi4-aarch64-cm4.img
-        - path: ./hosts/raspi4/aarch64-cm4-debug.json
-          imgName: raspberry-pi4-aarch64-cm4-debug.img
+        # - path: ./hosts/raspi4/aarch64.json
+        #   imgName: raspberry-pi4-aarch64.img
+        # - path: ./hosts/raspi4/aarch64-debug.json
+        #   imgName: raspberry-pi4-aarch64-debug.img
+        # - path: ./hosts/raspi4/aarch64-cm4.json
+        #   imgName: raspberry-pi4-aarch64-cm4.img
+        # - path: ./hosts/raspi4/aarch64-cm4-debug.json
+        #   imgName: raspberry-pi4-aarch64-cm4-debug.img
         - path: ./hosts/raspi4/armv7.json
           imgName: raspberry-pi4-armv7.img
-        - path: ./hosts/raspi4/armv7-debug.json
-          imgName: raspberry-pi4-armv7-debug.img
+        # - path: ./hosts/raspi4/armv7-debug.json
+        #   imgName: raspberry-pi4-armv7-debug.img
         #- path: ./hosts/raspi3/aarch64.json
         #  imgName: raspberry-pi3.img
         #- path: ./hosts/raspi4/ace.json
@@ -45,6 +45,11 @@ jobs:
         go-version: ${{ env.GO_VERSION }}
         check-latest: true
         cache: true
+    
+    - name: Setup `qemu`
+      uses: docker/setup-qemu-action@v3
+      with:
+        platforms: linux/amd64,linux/arm64
 
     - name: Setup `packer`
       uses: hashicorp/setup-packer@v2.0.1
@@ -80,7 +85,8 @@ jobs:
     - name: install deps
       shell: bash
       run: |
-        sudo apt install qemu-user-static util-linux gdisk e2fsprogs
+        apt update
+        apt-get install -y qemu-user-static binfmt-support util-linux gdisk fdisk xfsprogs e2fsprogs parted qemu-utils dosfstools psmisc
     - name: install packer plugins
       shell: bash
       run: |
@@ -93,8 +99,9 @@ jobs:
     # Build
     - name: run packer
       shell: bash
+      id: build
       run: |
-        sudo packer build -var-file ${{ matrix.host.path }} packer.json
+        PACKER_LOG=1 packer build -var-file ${{ matrix.host.path }} packer.json
 
     # pack
     - name: archive + compress image
