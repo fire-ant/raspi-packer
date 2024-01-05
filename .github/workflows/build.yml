@@ -26,6 +26,8 @@ jobs:
         #   imgName: raspberry-pi4-aarch64-cm4-debug.img
         - path: ./hosts/raspi4/armv7.json
           imgName: raspberry-pi4-armv7.img
+        - path: ./hosts/raspi4/arm_ubuntu.json
+          imgName: raspberry-pi4-armv7-ubuntu.img
         # - path: ./hosts/raspi4/armv7-debug.json
         #   imgName: raspberry-pi4-armv7-debug.img
         #- path: ./hosts/raspi3/aarch64.json
@@ -86,7 +88,7 @@ jobs:
     - name: install deps
       shell: bash
       run: |
-        sudo apt update
+        sudo apt-get update
         sudo apt-get install -y qemu-user-static binfmt-support util-linux gdisk fdisk xfsprogs e2fsprogs parted qemu-utils dosfstools psmisc
     - name: install packer plugins
       shell: bash
