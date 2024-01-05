@@ -2,7 +2,7 @@
     "hostname": "ubuntu-rpi-armv7",
     "size": "4G",
     "img_url": "http://cdimage.ubuntu.com/releases/20.04/release/ubuntu-20.04-preinstalled-server-arm64+raspi.img.xz",
-    "file_checksum_url":"https://cdimage.ubuntu.com/releases/20.04/release/SHA256SUMS",
+    "file_checksum":"065c41846ddf7a1c636a1aac5a7d49ebcee819b141f9d57fd586c5f84b9b7942",
     "file_checksum_type":"sha256",
     "file_unarchive_bin": "tar",
     "file_unarchive_flags": "-xzvf",
