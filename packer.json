@@ -1,10 +1,10 @@
 {
   "variables": {
     "hostname": "alarm",
-    "username": "bret",
-    "github_keys": "https://github.com/bcomnes.keys",
-    "git_user_email": "bcomnes@gmail.com",
-    "git_user_name": "Bret Comnes",
+    "username": "chris",
+    "github_keys": "https://github.com/fire-ant.keys",
+    "git_user_email": "clnewsletter@icloud.com",
+    "git_user_name": "Chris Lavery",
     "size": "2G",
     "img_url": "http://os.archlinuxarm.org/os/ArchLinuxARM-rpi-3-latest.tar.gz",
     "file_unarchive_bin": "bsdtar",
@@ -45,6 +45,7 @@
         "mountpoint": "/"
       }
     ],
+    "image_chroot_env": ["PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin"],
     "qemu_binary_source_path": "{{user `qemu_binary`}}",
     "qemu_binary_destination_path": "{{user `qemu_binary`}}"
   }],
