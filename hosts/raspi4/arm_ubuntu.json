@@ -6,7 +6,7 @@
     "file_checksum_type":"sha256",
     "file_unarchive_bin": "tar",
     "file_unarchive_flags": "-xzvf",
-    "img_name": "raspberry-pi4-armv7-ubuntu.img",
+    "image-path": "ubuntu-20.04-preinstalled-server-arm64+raspi.img",
     "qemu_binary": "/usr/bin/qemu-arm-static",
     "lockdown_root": "true"
 }
